@@ -7,12 +7,12 @@ jobs:
     steps:
       - name: Set variable
         run: |
-          echo "foo="some string"" >> "$GITHUB_ENV"
+          echo "results="final results here!"" >> "$GITHUB_ENV"
       - name: Send MM msg
         uses: mattermost/action-mattermost-notify@master
         with:
           MATTERMOST_WEBHOOK_URL: ${{ secrets.MM_WEBHOOK_URL }}
           TEXT: |
             Link: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            $foo
+            Result: ${{ env.results }}
             
