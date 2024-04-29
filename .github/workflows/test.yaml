@@ -1,0 +1,18 @@
+name: Test MM notify action
+on: workflow_dispatch
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set variable
+        run: |
+          echo "foo="some string"" >> "$GITHUB_ENV"
+      - name: Send MM msg
+        uses: mattermost/action-mattermost-notify@master
+        with:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MM_WEBHOOK_URL }}
+          TEXT: |
+            Link: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            $foo
+            
